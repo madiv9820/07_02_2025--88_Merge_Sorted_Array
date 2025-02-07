@@ -2,7 +2,7 @@ from Solution import Solution
 from timeout_decorator import timeout
 import unittest
 
-class Solution(unittest.TestCase):
+class UnitTest(unittest.TestCase):
     def setUp(self):
         self.__solution = Solution()
         self.__testcases = {1: ([1,2,3,0,0,0], 3, [2,5,6], 3, [1,2,2,3,5,6]),
@@ -11,9 +11,9 @@ class Solution(unittest.TestCase):
                             4: ([1,3,5,0,0,0], 3, [2,4,6], 3, [1,2,3,4,5,6]),
                             5: ([1, 2, 3, 0, 0, 0], 3, [5,6,7], 3, [1,2,3,5,6,7]),
                             6: ([1,0], 1, [2], 1, [1,2]),
-                            7: ([-10, 0, 5, 0, 0, 0], 3, [-5,0,10], 3),
-                            8: ([1,1,1,0,0,0], 3, [1,1,1], 3),
-                            9: ([0,0,0,0], 0, [], 0),
+                            7: ([-10, 0, 5, 0, 0, 0], 3, [-5,0,10], 3, [-10,-5,0,0,5,10]),
+                            8: ([1,1,1,0,0,0], 3, [1,1,1], 3, [1,1,1,1,1,1]),
+                            9: ([0,0,0,0], 0, [], 0, [0,0,0,0]),
                             10: ([1000000000, 2000000000, 3000000000, 0, 0, 0], 3, 
                                  [1500000000, 2500000000, 3500000000], 3, 
                                  [1000000000, 1500000000, 2000000000, 2500000000, 3000000000, 3500000000]),
@@ -52,12 +52,14 @@ class Solution(unittest.TestCase):
         self.assertEqual(nums1, expected)
     @timeout(0.5)
     def test_arrays_contain_negative_numbers(self):
-        nums1, m, nums2, n = self.__testcases[7]
+        nums1, m, nums2, n, expected = self.__testcases[7]
         self.__solution.merge(nums1, m, nums2, n)
+        self.assertEqual(nums1, expected)
     @timeout(0.5)
     def test_arrays_contain_identical_elements(self):
-        nums1, m, nums2, n = self.__testcases[8]
+        nums1, m, nums2, n, expected = self.__testcases[8]
         self.__solution.merge(nums1, m, nums2, n)
+        self.assertEqual(nums1, expected)
     @timeout(0.5)
     def test_both_arrays_are_empty(self):
         nums1, m, nums2, n, expected = self.__testcases[9]
